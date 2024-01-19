@@ -19,7 +19,7 @@ pygame.display.set_caption('DashBoard')
 car = NvidiaRacecar()
 
 # Default throttle value to stop the car
-default_throttle = 0.0
+default_throttle = 0.2
 car.throttle = default_throttle
 car.steering = 0.0
 
