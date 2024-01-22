@@ -96,8 +96,8 @@ def control_car():
 
         lines = [
             "",
-            "Throttle: {:.2f}".format(car.throttle),
-            "Steering: {:.2f}".format(car.steering)
+            "Throttle: {:.3f}".format(car.throttle),
+            "Steering: {:.3f}".format(car.steering)
         ]
         rendered_lines = [font.render(line, True, (255, 255, 255)) for line in lines]
 
@@ -123,9 +123,9 @@ def control_car():
 
         # Adjust the steering based on the key states
         if moveLeft:
-            car.steering -= 0.1
+            car.steering -= 0.003
         elif moveRight:
-            car.steering += 0.1
+            car.steering += 0.003
         # Gradually adjust the steering to 0.0 if the spacebar is pressed
         if spacePressed:
             if car.steering != 0.0:    
@@ -169,9 +169,11 @@ def capture_image():
 
         # Save the YUV image to a file with a unique filename
         filepath = "/home/miru/miru/kmwcode/dataset/data"
-        cv2.imwrite("%s_%05d_%d.png" %(filepath, i, car.steering), yuv_image)
+        cv2.imwrite("%s_%05d_%.3f_%.3f.png" %(filepath, i, car.steering, car.throttle), yuv_image)
         i += 1  # Increment the image index for the next image
 
+        time.sleep(1.0)
+        
         keyValue = cv2.waitKey(10)
         if keyValue == 27:  # ESC key
             break
@@ -189,6 +191,7 @@ def capture_image():
     # Release the camera and close the OpenCV windows
     camera.release()
     cv2.destroyAllWindows() 
+
 # Create a thread for capturing images from the camera
 camera_thread = threading.Thread(target=capture_image)
 

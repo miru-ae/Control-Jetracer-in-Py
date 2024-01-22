@@ -47,7 +47,7 @@ def main():
 
         # Convert the image to YUV format
         yuv_image = cv2.cvtColor(image, cv2.COLOR_BGR2YUV)
-        #yuv_image = cv2.GaussianBlur(image, (3,3), 0)
+        yuv_image = cv2.GaussianBlur(image, (3,3), 0)
         yuv_image = cv2.resize(image, (200,66))
 
         # Save the YUV image to a file with a unique filename

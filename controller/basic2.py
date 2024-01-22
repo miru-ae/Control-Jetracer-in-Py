@@ -59,8 +59,16 @@ def control_car():
             text += "Down "
         if qPressed:
             text += "Brake"
-        text += f"Throttle: {car.throttle:.2f}"  # Include the throttle value
+        #text += f"Throttle: {car.throttle:.3f}"  # Include the throttle value
+        lines = [
+            "",
+            "Throttle: {:.3f}".format(car.throttle),
+            "Steering: {:.3f}".format(car.steering)
+        ]
+        rendered_lines = [font.render(line, True, (255, 255, 255)) for line in lines]
 
+        for i, rendered_line in enumerate(rendered_lines):
+            windowSurface.blit(rendered_line, (10, 100 + i * 36)) 
 
         # Create a text surface
         text_surface = font.render(text, True, (255, 255, 255))
@@ -79,19 +87,17 @@ def control_car():
 
         # Adjust the steering based on the key states
         if moveLeft:
-            car.steering -= 0.001
+            car.steering -= 0.003
         elif moveRight:
-            car.steering += 0.001
+            car.steering += 0.003
         # Gradually adjust the steering to 0.0 if the spacebar is pressed
         if spacePressed:
-            if car.steering > 0.0:
-                car.steering -= 0.001
-            elif car.steering < 0.0:
-                car.steering += 0.001
+            if car.steering != 0.0:    
+                car.steering = 0.0
         elif moveForward:
-            car.throttle += 0.0005
+            car.throttle += 0.0001
         elif moveBack:
-            car.throttle -= 0.0009
+            car.throttle -= 0.0001
         if qPressed:
             car.throttle = default_throttle
         

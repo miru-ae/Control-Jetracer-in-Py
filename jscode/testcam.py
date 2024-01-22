@@ -56,10 +56,10 @@ def main():
 
                     #blur effect
                     blur = cv2.GaussianBlur(gray, (5,5), 0)
-                    #cv2.imshow('copy+gray+blur', blur)
+                    cv2.imshow('copy+gray+blur', blur)
 
                     #change value for better contrast
-                    ret, thresh1 = cv2.threshold(blur, 105.15, 255, cv2.THRESH_BINARY_INV)
+                    ret, thresh1 = cv2.threshold(blur, 150, 255, cv2.THRESH_BINARY_INV)
                     #cv2.imshow('thresh1', thresh1)
                     
                     mask = cv2.erode(thresh1, None, iterations=2)
